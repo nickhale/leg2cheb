@@ -4,7 +4,7 @@ function c_leg = cheb2leg(c_cheb, M)
 %   to a vector C_CHEB of Legendre coefficients such that 
 %   C_CHEB(1)*T0 + ... + C_CHEB(N)*T{N-1} = C_LEG(1)*P0 + ... + C_LEG(N)*P{N-1}.
 
-% Copyright 2013 Nick Hale and Alex Townsend University of Oxford.
+% Copyright 2013 Nick Hale and Alex Townsend, University of Oxford.
 % See http://github.com/nickhale/leg2cheb/ for updates.
 
 % This algorithm requires O( N(log N)^2 / log log N) operations and is based on
