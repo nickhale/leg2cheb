@@ -1,5 +1,5 @@
 function c_cheb = leg2cheb(c_leg, M)
-%LEG2CHEB convert Legendre coefficients to Chebyshev coefficients. 
+%LEG2CHEB   Convert Legendre coefficients to Chebyshev coefficients. 
 %   C_CHEB = LEG2CHEB(C_LEG) converts the vector C_LEG of Legendre coefficients
 %   to a vector C_CHEB of Chebyshev coefficients such that
 %   C_CHEB(1)*T0 + ... + C_CHEB(N)*T{N-1} = C_LEG(1)*P0 + ... + C_LEG(N)*P{N-1}.
@@ -17,7 +17,7 @@ c_leg = c_leg(:);                               % Make column vector.
 % c_leg = flipud(c_leg);                          % Lowest order coeffs first.
 
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%% Initialise  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-if (nargin == 1), M = 10; end                   % No. of terms in expansion.
+if ( nargin == 1 ), M = 10; end                 % No. of terms in expansion.
 N = length(c_leg) - 1; NN = (0:N)';             % Degree of polynomial.
 nM0 = min(floor(.5*(.25*eps*pi^1.5*gamma(M+1)/gamma(M+.5)^2)^(-1/(M+.5))),N);
 aM = min(1/log(N/nM0), .5);                     % Block reduction factor (alpha)
@@ -79,7 +79,7 @@ c_cheb = idct1(v_cheb);                           % Chebyshev coeffs.
 end
 
 function C = constantOutTheFront(N) % (See Hale and Townsend, 2012)
-%CONSTANTOUTTHEFRONT(N) =returns sqrt(4/pi)*gamma((0:N)+1)/gamma((0:N)+3/2))
+%CONSTANTOUTTHEFRONT(N) returns sqrt(4/pi)*gamma((0:N)+1)/gamma((0:N)+3/2))
 % Initialise:
 NN = (0:N)';
 NN(1) = 1; % Set the first value different from 0 to avoid complications.
@@ -116,7 +116,7 @@ v = flipud(v);                      % Flip the order.
 end
 
 function v = dst1(c, flag) %#ok<INUSD>
-%DST1   Compute a discrete sine transform of type 1.
+%DST1   Discrete sine transform of type 1.
 % DST1(C) returns diag(sin(T_N))*U_N(X)*C where T_N(k,1) = pi*(k-1)/N, k =
 % 1:N+1, X_N = cos(T_N) and U_N(X) = [U_0, U_1, ..., U_N](X) where U_k is the
 % kth 2nd-kind Chebyshev polynomial.
@@ -126,7 +126,7 @@ if ( isempty(Smat) ) % Construct conversion matrix:
     N = length(c) - 1;              % Degree of polynomial.
     dg = .5*ones(N-2, 1);           % Conversion matrix:
     Smat = spdiags([1 ; .5 ; dg], 0, N, N) + spdiags([0 ; 0 ; -dg], 2, N, N);
-    sint = sin(pi*(0:N).'/N);        % Sin(theta).
+    sint = sin(pi*(0:N).'/N);       % Sin(theta).
 end
 v = sint.*dct1([Smat\c(2:end) ; 0]);% Scaled DCT.
 end
